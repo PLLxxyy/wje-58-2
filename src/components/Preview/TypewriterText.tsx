@@ -6,9 +6,18 @@ interface TypewriterTextProps {
   fontFamily: string;
   fontSize: number;
   ghostIntensity: number;
+  isAnimating?: boolean;
+  typingSpeed?: number;
+  animationKey?: number;
 }
 
-export default function TypewriterText({ chars, fontFamily, fontSize, ghostIntensity }: TypewriterTextProps) {
+export default function TypewriterText({
+  chars,
+  fontFamily,
+  fontSize,
+  ghostIntensity,
+  isAnimating = false,
+}: TypewriterTextProps) {
   const ghostOpacity = ghostIntensity / 100;
 
   return (
@@ -24,14 +33,16 @@ export default function TypewriterText({ chars, fontFamily, fontSize, ghostInten
       {chars.map((char, index) => {
         const ghostOffset = char.ghostOffset || 0.5;
         const shadowOpacity = ghostOpacity * 0.35;
+        const isLastChar = index === chars.length - 1;
+        const shouldAnimate = isAnimating && isLastChar && chars.length > 0;
 
         return (
           <span
             key={index}
-            className={`inline-block relative ${char.isError ? 'text-accent-red' : ''}`}
+            className={`typewriter-char inline-block relative ${char.isError ? 'text-accent-red' : ''} ${shouldAnimate ? 'animating' : ''}`}
             style={{
               transform: `translate(${char.offsetX}px, ${char.offsetY}px)`,
-              opacity: char.opacity,
+              opacity: shouldAnimate ? 0 : char.opacity,
               textShadow: `
                 ${ghostOffset}px 0 0 rgba(61, 43, 31, ${shadowOpacity * 0.8}),
                 ${ghostOffset * 0.5}px 0 0 rgba(61, 43, 31, ${shadowOpacity * 0.5}),

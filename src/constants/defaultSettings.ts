@@ -9,5 +9,6 @@ export const DEFAULT_SETTINGS: EffectSettings = {
   ghostIntensity: 15,
   inkDensity: 25,
   misalignment: 12,
-  paperAge: 35
+  paperAge: 35,
+  typingSpeed: 50,
 };

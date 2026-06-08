@@ -7,6 +7,7 @@ export interface EffectSettings {
   inkDensity: number;
   misalignment: number;
   paperAge: number;
+  typingSpeed: number;
 }
 
 export interface FontOption {

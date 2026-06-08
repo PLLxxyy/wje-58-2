@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { ControlPanel } from '../components/ControlPanel';
-import Preview from '../components/Preview';
+import Preview, { PreviewHandle } from '../components/Preview';
 import ExportButtons from '../components/Export/ExportButtons';
 
 export default function Home() {
-  const previewRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<PreviewHandle>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-paper via-amber-50/30 to-paper">
@@ -28,7 +28,7 @@ export default function Home() {
           <section className="flex-1 flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-ink">预览效果</h2>
-              <ExportButtons targetRef={previewRef} />
+              <ExportButtons previewRef={previewRef} />
             </div>
 
             <div className="flex-1 flex items-start justify-center bg-ink/5 rounded-xl p-4 md:p-8 min-h-[600px]">
