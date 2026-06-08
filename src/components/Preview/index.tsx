@@ -63,15 +63,14 @@ const Preview = forwardRef<PreviewHandle>((_, ref) => {
 
   useEffect(() => {
     stopAnimation();
-  }, [renderedChars.length, stopAnimation]);
+  }, [settings.text, settings.font, settings.errorRate, settings.ghostIntensity, settings.inkDensity, settings.misalignment, settings.paperAge, stopAnimation]);
 
   const handlePlay = useCallback(() => {
-    if (currentIndexRef.current >= renderedChars.length) {
-      currentIndexRef.current = 0;
-      setVisibleCount(0);
-    }
+    clearAnimationInterval();
+    currentIndexRef.current = 0;
+    setVisibleCount(0);
     setIsPlaying(true);
-  }, [renderedChars.length]);
+  }, [clearAnimationInterval]);
 
   const handlePause = useCallback(() => {
     setIsPlaying(false);
@@ -103,7 +102,7 @@ const Preview = forwardRef<PreviewHandle>((_, ref) => {
                          focus:outline-none focus:ring-2 focus:ring-accent-red/50"
               >
                 <Play className="w-4 h-4" />
-                {currentIndexRef.current > 0 && currentIndexRef.current < renderedChars.length ? '继续' : '播放动画'}
+                播放动画
               </button>
             ) : (
               <button
